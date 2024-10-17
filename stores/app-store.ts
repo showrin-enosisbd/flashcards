@@ -1,26 +1,12 @@
 import { createStore } from "zustand/vanilla";
+import { CounterSlice, createCounterSlice } from "./counter-store";
+import { createNameSlice, NameSlice } from "./name-store";
 
-export type AppState = {
-    count: number;
-};
+export type AppStore = CounterSlice & NameSlice;
 
-export type AppActions = {
-    decrementCount: () => void;
-    incrementCount: () => void;
-};
-
-export type AppStore = AppState & AppActions;
-
-export const defaultInitState: AppState = {
-    count: 0,
-};
-
-export const createAppStore = (
-    initState: AppState = defaultInitState
-) => {
-    return createStore<AppStore>()((set) => ({
-        ...initState,
-        decrementCount: () => set((state) => ({ count: state.count - 1 })),
-        incrementCount: () => set((state) => ({ count: state.count + 1 })),
+export const createAppStore = () => {
+    return createStore<AppStore>()((...args) => ({
+        ...createCounterSlice(...args),
+        ...createNameSlice(...args),
     }));
 };
