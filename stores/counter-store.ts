@@ -18,11 +18,21 @@ export const defaultCounterInitState: CounterState = {
 
 export const createCounterSlice: StateCreator<
     AppStore,
-    [],
+    [["zustand/devtools", never]],
     [],
     CounterSlice
 > = (set) => ({
     ...defaultCounterInitState,
-    decrementCount: () => set((state) => ({ count: state.count - 1 })),
-    incrementCount: () => set((state) => ({ count: state.count + 1 })),
+    decrementCount: () =>
+        set(
+            (state) => ({ count: state.count - 1 }),
+            undefined,
+            "count/decrement"
+        ),
+    incrementCount: () =>
+        set(
+            (state) => ({ count: state.count + 1 }),
+            undefined,
+            "count/increment"
+        ),
 });

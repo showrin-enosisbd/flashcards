@@ -15,9 +15,13 @@ export const defaultNameInitState: NameState = {
     name: "",
 };
 
-export const createNameSlice: StateCreator<AppStore, [], [], NameSlice> = (
-    set
-) => ({
+export const createNameSlice: StateCreator<
+    AppStore,
+    [["zustand/devtools", never]],
+    [],
+    NameSlice
+> = (set) => ({
     ...defaultNameInitState,
-    changeName: (newName) => set(() => ({ name: newName })),
+    changeName: (newName) =>
+        set(() => ({ name: newName }), undefined, "name/change"),
 });
